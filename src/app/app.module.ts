@@ -5,15 +5,15 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { StoreModule } from '@ngrx/store';
 import {
-  MdButtonModule,
-  MdCardModule,
-  MdDialog,
-  MdDialogModule,
-  MdIconModule,
-  MdInputModule,
-  MdListModule,
-  MdMenuModule,
-  MdToolbarModule
+  MatButtonModule,
+  MatCardModule,
+  MatDialog,
+  MatDialogModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
+  MatMenuModule,
+  MatToolbarModule
 } from '@angular/material';
 import 'hammerjs';
 
@@ -28,7 +28,7 @@ import { WishComponent } from 'app/components/wish-card/wish-card.component';
 import { AddWishFabButtonComponent } from 'app/components/add-wish-fab-button/add-wish-fab-button.component';
 import { WishesEffects } from 'app/common/effects/wishes.effects';
 import { EffectsModule } from '@ngrx/effects';
-import { metaReducers, reducers } from './common/reducers/index';
+import { metaReducers, reducers } from './common/reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
@@ -49,21 +49,21 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     FormsModule,
     HttpModule,
     BrowserAnimationsModule,
-    MdButtonModule,
-    MdCardModule,
-    MdInputModule,
-    MdToolbarModule,
-    MdListModule,
-    MdMenuModule,
-    MdIconModule,
-    MdDialogModule,
+    MatButtonModule,
+    MatCardModule,
+    MatInputModule,
+    MatToolbarModule,
+    MatListModule,
+    MatMenuModule,
+    MatIconModule,
+    MatDialogModule,
     AppRoutingModule,
     StoreModule.forRoot(reducers, {metaReducers}),
     EffectsModule.forRoot([WishesEffects]),
     StoreDevtoolsModule.instrument()
   ],
   providers: [
-    MdDialog,
+    MatDialog,
     WishListService
   ],
   bootstrap: [AppComponent]

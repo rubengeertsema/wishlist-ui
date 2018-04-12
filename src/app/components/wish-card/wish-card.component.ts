@@ -7,23 +7,23 @@ import * as wishActions from 'app/common/actions/wishes.actions';
 @Component({
   selector: 'app-wish-card',
   template: `
-    <md-card class="card">
-      <md-card-header>
-        <md-card-title>
+    <mat-card class="card">
+      <mat-card-header>
+        <mat-card-title>
           Title: {{wish.title | truncate: 15}}
-        </md-card-title>
-        <md-card-subtitle>
+        </mat-card-title>
+        <mat-card-subtitle>
           Date: {{wish.date | date: "dd/MM/yy H:mm"}}
-        </md-card-subtitle>
-      </md-card-header>
-      <md-card-content class="content">
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content class="content">
         <p>{{wish.description}}</p>
-      </md-card-content>
-      <md-card-actions>
-        <button class="edit-button" color="primary" md-raised-button (click)="editWish(wish)">Edit</button>
-        <button class="delete-button" color="warn" md-raised-button (click)="deleteWish(wish)">Delete</button>
-      </md-card-actions>
-    </md-card>
+      </mat-card-content>
+      <mat-card-actions>
+        <button class="edit-button" color="primary" mat-raised-button (click)="editWish(wish)">Edit</button>
+        <button class="delete-button" color="warn" mat-raised-button (click)="deleteWish(wish)">Delete</button>
+      </mat-card-actions>
+    </mat-card>
   `,
   styles: [`
     :host {
@@ -37,14 +37,10 @@ import * as wishActions from 'app/common/actions/wishes.actions';
       height: 10em;
     }
 
-    md-card-content p {
+    mat-card-content p {
       height: 9em;
       overflow-y: auto;
     }
-
-    /*:host-context(.dark-theme) .delete-button {*/
-    /*background-color: #b10909;*/
-    /*}*/
   `]
 })
 export class WishComponent implements OnInit {

@@ -10,7 +10,7 @@ import 'rxjs/add/observable/throw';
 @Injectable()
 export class WishListService {
 
-  private BASE_URL = 'http://localhost:8080/wishlist-srv/api';
+  private BASE_URL = 'http://localhost:4200/backend/api';
 
   constructor(private http: Http) {
   }

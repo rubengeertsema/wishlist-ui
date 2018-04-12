@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { NewWishDialogComponent } from '../add-wish-dialog/add-wish-dialog';
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-add-wish-fab-button',
   template: `
-    <button md-fab
+    <button mat-fab
             id="add-wish-fab-button"
             (click)="openAddWishDialog($event)">
-      <md-icon>add</md-icon>
+      <mat-icon>add</mat-icon>
     </button>
   `,
   styles: [`
@@ -26,7 +26,7 @@ import { MdDialog } from '@angular/material';
 })
 export class AddWishFabButtonComponent implements OnInit {
 
-  constructor(private dialog: MdDialog) {
+  constructor(private dialog: MatDialog) {
   }
 
   ngOnInit() {

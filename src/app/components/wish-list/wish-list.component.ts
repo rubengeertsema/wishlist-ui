@@ -5,10 +5,10 @@ import * as fromRoot from 'app/common/reducers';
 @Component({
   selector: 'app-wish-list',
   template: `
-    <md-list class="card-list">
+    <mat-list class="card-list">
       <app-wish-card *ngFor="let wish of this.wishes$ | async" [wish]="wish">
       </app-wish-card>
-    </md-list>
+    </mat-list>
     <app-add-wish-fab-button></app-add-wish-fab-button>
   `,
   styles: [`

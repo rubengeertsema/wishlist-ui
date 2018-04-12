@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { NewWishDialogComponent } from '../add-wish-dialog/add-wish-dialog';
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { Store } from '@ngrx/store';
 import * as fromRoot from 'app/common/reducers';
 import * as wishActions from 'app/common/actions/wishes.actions';
@@ -9,22 +8,19 @@ import * as themeActions from 'app/common/actions/theme.actions';
 @Component({
   selector: 'app-navbar',
   template: `
-    <md-toolbar class="navbar" color="primary" id="navbar">
+    <mat-toolbar class="navbar" color="primary" id="navbar">
       <span>WISHLIST</span>
       <span class="spacer"></span>
-      <button md-button (click)="toggleTheme()">TOGGLE THEME</button>
-      <button md-icon-button [mdMenuTriggerFor]="menu" id="menuButton">
-        <md-icon>more_vert</md-icon>
+      <button mat-button (click)="toggleTheme()">TOGGLE THEME</button>
+      <button mat-icon-button [matMenuTriggerFor]="menu" id="menuButton">
+        <mat-icon>more_vert</mat-icon>
       </button>
-      <md-menu #menu="mdMenu">
-        <button md-menu-item (click)="openNewWishDialog()" id="createNewWishDialogButton">
-          <md-icon>create</md-icon>
-          <span>Create new wish</span></button>
-        <button md-menu-item (click)="deleteAll()" id="deleteAllButton">
-          <md-icon>delete</md-icon>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="deleteAll()" id="deleteAllButton">
+          <mat-icon>delete</mat-icon>
           <span>Delete all wishes</span></button>
-      </md-menu>
-    </md-toolbar>
+      </mat-menu>
+    </mat-toolbar>
   `,
   styles: [`
     .navbar {
@@ -44,15 +40,11 @@ import * as themeActions from 'app/common/actions/theme.actions';
 })
 export class NavbarComponent {
 
-  constructor(private dialog: MdDialog, public store: Store<fromRoot.State>) {
+  constructor(public store: Store<fromRoot.State>) {
   }
 
   toggleTheme() {
     this.store.dispatch(new themeActions.ToggleTheme());
-  }
-
-  openNewWishDialog(): void {
-    this.dialog.open(NewWishDialogComponent);
   }
 
   deleteAll(): void {

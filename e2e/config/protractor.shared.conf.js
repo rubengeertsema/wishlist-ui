@@ -33,7 +33,7 @@ exports.config = {
         fs.emptyDirSync(jsonReportDir);
     },
     onPrepare: function () {
-        global.ngApimock = require('../../.tmp/ngApimock/protractor.mock.js');
+        // global.ngApimock = require('../../.tmp/ngApimock/protractor.mock.js');
     },
     onComplete: function () {
         // nothing to do here

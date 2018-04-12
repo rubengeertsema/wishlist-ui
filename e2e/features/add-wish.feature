@@ -5,11 +5,9 @@ Feature: Add wishes
   So I can look them up once I forget them
 
   Scenario Outline: Add a wish
-    Given "<initial>" wishes
-    When I add a new wish
-    Then there are "<result>" wishes displayed
+    When I add a new wish with title "<title>" and description "<description>"
+    Then the wish with title "<title>" and description "<description>" will be displayed
 
     Examples:
-      | initial | result |
-      | 6       | 7      |
-      | 0       | 1      |
+      | title    | description      |
+      | New wish | Wish description |

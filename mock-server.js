@@ -1,32 +1,18 @@
 const express = require('express');
-const path = require('path');
-const ngApiMock = require('ng-apimock')();
-const app = express();
-const configuration = {'src': './mocks', 'outputDir': '.tmp/ngApimock'};
 const bodyParser = require('body-parser');
 
 /**
- * Register all available mocks and generate interface
+ * mock server
  */
-ngApiMock.run(configuration);
-ngApiMock.watch(configuration.src);
 
+const app = express();
 app.set('port', (process.env.PORT || 3000));
-
-// process the api calls through ng-apimock
-app.use(require('ng-apimock/lib/utils').ngApimockRequest);
-
-// serve the mocking interface for local development
-app.use('/mocking', express.static('.tmp/ngApimock'));
-
-// add some additional custom mocking
-let wishes = [];
 app.use(bodyParser.json());
 
+let wishes = [];
 app.get('/backend/api', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
-  let resBody = {'content': wishes};
-  res.send(resBody);
+  res.send({'content': wishes});
 });
 
 app.post('/backend/api', function (req, res) {
@@ -39,51 +25,34 @@ app.post('/backend/api', function (req, res) {
 
   wishes.push(wish);
   res.setHeader('Content-Type', 'application/json');
-  res.status(201).send(wish);
+  res.status(201);
+  res.send(wish);
 });
 
 app.delete('/backend/api/:wishId', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
   let id = req.params.wishId;
+  res.setHeader('Content-Type', 'application/json');
   if (wishPresent(id)) {
-    let resBody = {'content': getWish(id)};
-    deleteWish(id);
-    res.send(resBody);
+    const toBeDeleted = getWish(id);
+    deleteWish(toBeDeleted.id);
+    res.send({'content': toBeDeleted});
   } else {
     res.status(404).send('Cannot be deleted: wish not found.');
   }
 });
 
-app.delete('/api/cleanmock', function (res) {
+app.delete('/backend/api/', function (req, res) {
   wishes = [];
-  res.status(200).send('Mock has been cleaned.');
+  res.setHeader('Content-Type', 'application/json');
+  res.status(200);
+  res.send('Deleted all wishes.');
 });
 
-function wishPresent(id) {
-  return getWish(id) !== null;
-}
-
-function getWish(id) {
-  let wish = null;
-  for (let i = 0; i < wishes.length; i++) {
-    if (wishes[i].id === id) {
-      wish = wishes[i];
-    }
-  }
-  return wish;
-}
-
-function deleteWish(id) {
-  for (let i = 0; i < wishes.length; i++) {
-    if (wishes[i].id === id) {
-      wishes.splice(i, 1);
-    }
-  }
-}
-
-function getRandomString() {
-  return Math.random().toString(36).substr(2, 10);
-}
+// helpers
+const wishPresent = (id) => getWish(id) !== null;
+const getWish = (id) => wishes.find((wish) => wish.id === id);
+const deleteWish = (id) => wishes = wishes.filter((wish) => wish.id !== id);
+const getRandomString = () => Math.random().toString(36).substr(2, 10);
 
 app.listen(app.get('port'), function () {
   console.log('app running on port', app.get('port'));

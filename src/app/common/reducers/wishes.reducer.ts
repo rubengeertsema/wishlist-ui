@@ -20,19 +20,15 @@ export function reducer(state = initialState, action: wishes.Actions): State {
       });
     }
     case wishes.DELETE_WISH_SUCCESS: {
-      const newWishes = state.wishes.filter(
-        (wish) => wish.id !== action.payload.id
-      );
+      const newWishes = state.wishes.filter((wish) => action.payload.content.id !== wish.id);
 
       return Object.assign({}, state, {
         wishes: newWishes
       });
     }
     case wishes.DELETE_ALL_WISHES_SUCCESS: {
-      const newWishes = [];
-
       return Object.assign({}, state, {
-        wishes: newWishes
+        wishes: []
       });
     }
     default:

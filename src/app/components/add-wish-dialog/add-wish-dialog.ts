@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MdDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material';
 import { Wish } from '../../common/models/wish.model';
 import { Store } from '@ngrx/store';
 import * as fromRoot from 'app/common/reducers';
@@ -12,33 +12,33 @@ import * as wishActions from 'app/common/actions/wishes.actions';
       <div><h2>New Wish</h2></div>
       <div class="dialog-body">
         <form (ngSubmit)="wishForm.form.valid && postWish()" #wishForm="ngForm">
-          <md-form-field class="full-dialog-width">
-            <input mdInput
+          <mat-form-field class="full-dialog-width">
+            <input matInput
                    placeholder="title"
                    id="titleInput"
                    name="title"
                    maxlength={{maxTitleLength}}
             [(ngModel)]="title"
             required>
-            <md-hint align="end">{{title.length}} / {{maxTitleLength}}</md-hint>
-          </md-form-field>
-          <md-form-field class="full-dialog-width">
-        <textarea mdInput
+            <mat-hint align="end">{{title.length}} / {{maxTitleLength}}</mat-hint>
+          </mat-form-field>
+          <mat-form-field class="full-dialog-width">
+        <textarea matInput
                   placeholder="description"
                   id="descriptionInput"
                   name="description"
                   maxlength={{maxDescriptionLength}}
-            mdAutosizeMinRows="5"
-            mdAutosizeMaxRows="8"
-            mdTextareaAutosize
+            matAutosizeMinRows="5"
+            matAutosizeMaxRows="8"
+            matTextareaAutosize
             [(ngModel)]="description"
             required>
             </textarea>
-            <md-hint align="end">{{description.length}} / {{maxDescriptionLength}}</md-hint>
-          </md-form-field>
+            <mat-hint align="end">{{description.length}} / {{maxDescriptionLength}}</mat-hint>
+          </mat-form-field>
           <div class="form-buttons">
-            <button type="submit" md-raised-button color="primary" [disabled]="!wishForm.form.valid">Post wish</button>
-            <button md-raised-button color="warn" (click)="closeDialog()">Cancel</button>
+            <button type="submit" mat-raised-button color="primary" [disabled]="!wishForm.form.valid">Post wish</button>
+            <button mat-raised-button color="warn" (click)="closeDialog()">Cancel</button>
           </div>
         </form>
       </div>
@@ -74,7 +74,7 @@ export class NewWishDialogComponent implements OnInit {
   title = '';
   description = '';
 
-  constructor(public dialogRef: MdDialogRef<NewWishDialogComponent>,
+  constructor(public dialogRef: MatDialogRef<NewWishDialogComponent>,
               public store: Store<fromRoot.State>) {
   }
 

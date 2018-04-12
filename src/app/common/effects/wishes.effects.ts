@@ -40,9 +40,7 @@ export class WishesEffects {
     .switchMap((action) => {
       const deleteWishAction = action as wishes.DeleteWish;
       return this.wishListApi.deleteWish(deleteWishAction.payload)
-        .map((res) => {
-          return new wishes.DeleteWishSuccess(res);
-        })
+        .map((res) => new wishes.DeleteWishSuccess(res))
         .catch(error => of(new wishes.DeleteWishFailed(error)))
     });
 
