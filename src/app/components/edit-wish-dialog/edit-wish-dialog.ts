@@ -1,26 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { Component, Input, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Wish } from '../../common/models/wish.model';
 import { Store } from '@ngrx/store';
 import * as fromRoot from 'app/common/reducers';
 import * as wishActions from 'app/common/actions/wishes.actions';
 
 @Component({
-  selector: 'app-add-wish-dialog',
+  selector: 'app-edit-wish-dialog',
   template: `
-    <div class="dialog" id="newWishDialog">
-      <div><h2>New Wish</h2></div>
+    <div class="dialog" id="editWishDialog">
+      <div><h2>Edit Wish</h2></div>
       <div class="dialog-body">
-        <form (ngSubmit)="wishForm.form.valid && postWish()" #wishForm="ngForm">
+        <form (ngSubmit)="wishForm.form.valid && onSaveWish()" #wishForm="ngForm">
           <mat-form-field class="full-dialog-width">
             <input matInput
                    placeholder="title"
                    id="titleInput"
                    name="title"
                    maxlength={{maxTitleLength}}
-            [(ngModel)]="title"
+            [(ngModel)]="wish.title"
             required>
-            <mat-hint align="end">{{title.length}} / {{maxTitleLength}}</mat-hint>
+            <mat-hint align="end">{{wish.title.length}} / {{maxTitleLength}}</mat-hint>
           </mat-form-field>
           <mat-form-field class="full-dialog-width">
         <textarea matInput
@@ -31,14 +31,14 @@ import * as wishActions from 'app/common/actions/wishes.actions';
             matAutosizeMinRows="5"
             matAutosizeMaxRows="8"
             matTextareaAutosize
-            [(ngModel)]="description"
+            [(ngModel)]="wish.description"
             required>
             </textarea>
-            <mat-hint align="end">{{description.length}} / {{maxDescriptionLength}}</mat-hint>
+            <mat-hint align="end">{{wish.description.length}} / {{maxDescriptionLength}}</mat-hint>
           </mat-form-field>
           <div class="form-buttons">
-            <button type="submit" mat-raised-button color="primary" [disabled]="!wishForm.form.valid">Post wish</button>
-            <button mat-raised-button color="warn" (click)="closeDialog()">Cancel</button>
+            <button type="submit" mat-raised-button color="primary" [disabled]="!wishForm.form.valid">Save wish</button>
+            <button mat-raised-button color="warn" (click)="onCloseDialog()">Cancel</button>
           </div>
         </form>
       </div>
@@ -66,34 +66,28 @@ import * as wishActions from 'app/common/actions/wishes.actions';
     }
   `]
 })
-export class AddWishDialogComponent implements OnInit {
+export class EditWishDialogComponent implements OnInit {
+
+  wish: Wish;
 
   maxTitleLength = 100;
   maxDescriptionLength = 300;
 
-  title = '';
-  description = '';
-
-  constructor(public dialogRef: MatDialogRef<AddWishDialogComponent>,
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
+              public dialogRef: MatDialogRef<EditWishDialogComponent>,
               public store: Store<fromRoot.State>) {
   }
 
   ngOnInit(): void {
+    this.wish = Object.assign({}, this.data);
   }
 
-  postWish() {
-    const wish: Wish = {
-      id: null,
-      title: this.title,
-      description: this.description,
-      date: null
-    };
-
-    this.store.dispatch(new wishActions.AddWish(wish));
+  onSaveWish() {
+    this.store.dispatch(new wishActions.EditWish(this.wish));
     this.dialogRef.close();
   }
 
-  closeDialog() {
-    this.dialogRef.close(null);
+  onCloseDialog() {
+    this.dialogRef.close();
   }
 }

@@ -5,17 +5,19 @@ const bodyParser = require('body-parser');
  * mock server
  */
 
+// TODO: needs some fixes
 const app = express();
+const baseUrl = '/api/wishes';
 app.set('port', (process.env.PORT || 3000));
 app.use(bodyParser.json());
 
 let wishes = [];
-app.get('/backend/api', function (req, res) {
+app.get(baseUrl, (req, res) => {
   res.setHeader('Content-Type', 'application/json');
-  res.send({'content': wishes});
+  res.send({'content': wishes}); // spring boot res
 });
 
-app.post('/backend/api', function (req, res) {
+app.post(baseUrl, (req, res) => {
   let wish = {
     'id': getRandomString(),
     'title': req.body.title,
@@ -29,7 +31,17 @@ app.post('/backend/api', function (req, res) {
   res.send(wish);
 });
 
-app.delete('/backend/api/:wishId', function (req, res) {
+app.put(baseUrl, (req, res) => {
+  let wish = getWish(req.body.id);
+  wish.title = req.body.title;
+  wish.description = req.body.description;
+  wish.date = new Date();
+  res.setHeader('Content-Type', 'application/json');
+  res.status(200);
+  res.send(wish);
+});
+
+app.delete(`${baseUrl}/:wishId`, (req, res) => {
   let id = req.params.wishId;
   res.setHeader('Content-Type', 'application/json');
   if (wishPresent(id)) {
@@ -41,11 +53,11 @@ app.delete('/backend/api/:wishId', function (req, res) {
   }
 });
 
-app.delete('/backend/api/', function (req, res) {
+app.delete(baseUrl, (req, res) => {
   wishes = [];
   res.setHeader('Content-Type', 'application/json');
   res.status(200);
-  res.send('Deleted all wishes.');
+  res.send('');
 });
 
 // helpers

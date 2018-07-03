@@ -16,9 +16,7 @@ export class WishesEffects {
     .startWith(new wishes.GetWishes())
     .switchMap(() => {
       return this.wishListApi.getWishes()
-        .map((res) => {
-          return new wishes.GetWishesSuccess(res);
-        })
+        .map((res) => new wishes.GetWishesSuccess(res))
         .catch(error => of(new wishes.GetWishesFailed(error)))
     });
 
@@ -28,10 +26,21 @@ export class WishesEffects {
     .switchMap((action) => {
       const addWishAction = action as wishes.AddWish;
       return this.wishListApi.postWish(addWishAction.payload)
-        .map((res) => {
-          return new wishes.AddWishSuccess(res);
-        })
+        .map((res) => new wishes.AddWishSuccess(res))
         .catch(error => of(new wishes.AddWishFailed(error)))
+    });
+
+  @Effect()
+  editWish$: Observable<Action> = this.actions$
+    .ofType(wishes.EDIT_WISH)
+    .switchMap((action) => {
+      const editWishAction = action as wishes.EditWish;
+      return this.wishListApi.editWish(editWishAction.payload)
+        .map((res) => {
+          console.log(`In edit wish effect log: ${JSON.stringify(res)}`);
+          return new wishes.EditWishSuccess(res)
+        })
+        .catch(error => of(new wishes.EditWishFailed(error)))
     });
 
   @Effect()
@@ -39,7 +48,7 @@ export class WishesEffects {
     .ofType(wishes.DELETE_WISH)
     .switchMap((action) => {
       const deleteWishAction = action as wishes.DeleteWish;
-      return this.wishListApi.deleteWish(deleteWishAction.payload)
+      return this.wishListApi.deleteWish(deleteWishAction.payload.id)
         .map((res) => new wishes.DeleteWishSuccess(res))
         .catch(error => of(new wishes.DeleteWishFailed(error)))
     });
@@ -49,9 +58,7 @@ export class WishesEffects {
     .ofType(wishes.DELETE_ALL_WISHES)
     .switchMap(() => {
       return this.wishListApi.deleteAll()
-        .map((res) => {
-          return new wishes.DeleteAllWishesSuccess(res);
-        })
+        .map(() => new wishes.DeleteAllWishesSuccess())
         .catch(error => of(new wishes.DeleteAllWishesFailed(error)))
     });
 

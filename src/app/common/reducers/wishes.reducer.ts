@@ -19,8 +19,20 @@ export function reducer(state = initialState, action: wishes.Actions): State {
         wishes: [...state.wishes, action.payload]
       });
     }
+    case wishes.EDIT_WISH_SUCCESS: {
+      return Object.assign({}, state, {
+        wishes: state.wishes.map(wish => {
+          if (wish.id === action.payload.id) {
+            wish.title = action.payload.title;
+            wish.description = action.payload.description;
+            wish.date = action.payload.date;
+          }
+          return wish
+        })
+      });
+    }
     case wishes.DELETE_WISH_SUCCESS: {
-      const newWishes = state.wishes.filter((wish) => action.payload.content.id !== wish.id);
+      const newWishes = state.wishes.filter((wish) => action.payload.id !== wish.id);
 
       return Object.assign({}, state, {
         wishes: newWishes
@@ -28,7 +40,7 @@ export function reducer(state = initialState, action: wishes.Actions): State {
     }
     case wishes.DELETE_ALL_WISHES_SUCCESS: {
       return Object.assign({}, state, {
-        wishes: []
+        wishes: null
       });
     }
     default:

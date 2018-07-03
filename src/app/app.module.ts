@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 import { StoreModule } from '@ngrx/store';
 import {
   MatButtonModule,
@@ -18,7 +17,7 @@ import {
 import 'hammerjs';
 
 import { AppComponent } from 'app/app.component';
-import { NewWishDialogComponent } from 'app/components/add-wish-dialog/add-wish-dialog';
+import { AddWishDialogComponent } from 'app/components/add-wish-dialog/add-wish-dialog';
 import { WishListService } from 'app/common/services/wishlist.service';
 import { TruncatePipe } from 'app/common/pipes/truncate';
 import { AppRoutingModule } from 'app/app-routing.module';
@@ -30,24 +29,28 @@ import { WishesEffects } from 'app/common/effects/wishes.effects';
 import { EffectsModule } from '@ngrx/effects';
 import { metaReducers, reducers } from './common/reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EditWishDialogComponent } from 'app/components/edit-wish-dialog/edit-wish-dialog';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
     TruncatePipe,
-    NewWishDialogComponent,
+    AddWishDialogComponent,
+    EditWishDialogComponent,
     NavbarComponent,
     WishListComponent,
     WishComponent,
     AddWishFabButtonComponent
   ],
   entryComponents: [
-    NewWishDialogComponent
+    AddWishDialogComponent,
+    EditWishDialogComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     MatButtonModule,
     MatCardModule,

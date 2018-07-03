@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NewWishDialogComponent } from '../add-wish-dialog/add-wish-dialog';
+import { AddWishDialogComponent } from '../add-wish-dialog/add-wish-dialog';
 import { MatDialog } from '@angular/material';
 
 @Component({
@@ -33,6 +33,6 @@ export class AddWishFabButtonComponent implements OnInit {
   }
 
   openAddWishDialog(): void {
-    this.dialog.open(NewWishDialogComponent);
+    this.dialog.open(AddWishDialogComponent);
   }
 }

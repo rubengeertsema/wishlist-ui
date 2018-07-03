@@ -1,5 +1,5 @@
 {
-    "/backend/api/*": {
+    "/api/wishes/*": {
         "target": "http://localhost:3000",
         "secure": false,
         "logLevel": "debug"
