@@ -86,7 +86,7 @@ export class AddWishDialogComponent implements OnInit {
       id: null,
       title: this.title,
       description: this.description,
-      date: null
+      dateTime: null
     };
 
     this.store.dispatch(new wishActions.AddWish(wish));

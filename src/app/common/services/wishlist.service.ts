@@ -9,7 +9,7 @@ import 'rxjs/add/observable/throw';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { catchError, retry } from 'rxjs/operators';
 
-const BASE_URL = 'http://localhost:8080/wishlist-srv/api/wishes';
+const BASE_URL = 'http://localhost:8080/api/wishes';
 const RETRIES = 3;
 const httpOptions = {
   headers: new HttpHeaders({

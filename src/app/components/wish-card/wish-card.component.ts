@@ -15,7 +15,7 @@ import { EditWishDialogComponent } from 'app/components/edit-wish-dialog/edit-wi
           Title: {{wish.title | truncate: 15}}
         </mat-card-title>
         <mat-card-subtitle>
-          Date: {{wish.date | date: "dd/MM/yy H:mm"}}
+          Date: {{wish.dateTime | date: "dd/MM/yy H:mm"}}
         </mat-card-subtitle>
       </mat-card-header>
       <mat-card-content class="content">

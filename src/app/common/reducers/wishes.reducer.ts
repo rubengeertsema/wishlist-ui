@@ -25,7 +25,7 @@ export function reducer(state = initialState, action: wishes.Actions): State {
           if (wish.id === action.payload.id) {
             wish.title = action.payload.title;
             wish.description = action.payload.description;
-            wish.date = action.payload.date;
+            wish.dateTime = action.payload.dateTime;
           }
           return wish
         })
