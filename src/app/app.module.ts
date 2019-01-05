@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import {
@@ -30,7 +30,30 @@ import { EffectsModule } from '@ngrx/effects';
 import { metaReducers, reducers } from './common/reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EditWishDialogComponent } from 'app/components/edit-wish-dialog/edit-wish-dialog';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { KeycloakService } from './keycloak.service';
+import { TokenInterceptor } from './token.inteceptor';
+
+export function kcFactory(keycloakService: KeycloakService) {
+  return () => keycloakService.init();
+}
+
+export const httpInterceptorProviders = [
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi: true
+  }
+];
+
+export const appInitializerProviders = [
+  {
+    provide: APP_INITIALIZER,
+    useFactory: kcFactory,
+    deps: [KeycloakService],
+    multi: true
+  }
+];
 
 @NgModule({
   declarations: [
@@ -66,10 +89,14 @@ import { HttpClientModule } from '@angular/common/http';
     StoreDevtoolsModule.instrument()
   ],
   providers: [
+    appInitializerProviders,
     MatDialog,
-    WishListService
+    WishListService,
+    httpInterceptorProviders,
+    KeycloakService,
   ],
   bootstrap: [AppComponent]
 })
+
 export class AppModule {
 }

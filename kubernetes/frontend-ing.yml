@@ -1,0 +1,14 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: wishlist-ui-ingress
+  labels:
+    app: wishlist-ui
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /
+        backend:
+          serviceName: wishlist-ui
+          servicePort: 80

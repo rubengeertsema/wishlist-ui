@@ -1,0 +1,29 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: wishlist-ui
+    name: wishlist-ui
+  name: wishlist-ui
+spec:
+  replicas: 2
+  revisionHistoryLimit: 2
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: wishlist-ui
+        name: wishlist-ui
+    spec:
+      imagePullSecrets:
+      - name: registry.gitlab.com
+      containers:
+      - name: wishlist-ui
+        image: registry.gitlab.com/rubengeertsema/wishlist-ui:latest
+        ports:
+        - containerPort: 80
+        imagePullPolicy: Always

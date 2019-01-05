@@ -64,6 +64,10 @@ import * as wishActions from 'app/common/actions/wishes.actions';
       margin-top: 1em;
       margin-bottom: 0.2em;
     }
+    
+    button {
+      margin-right: 5px;
+    }
   `]
 })
 export class AddWishDialogComponent implements OnInit {

@@ -22,7 +22,7 @@ import { EditWishDialogComponent } from 'app/components/edit-wish-dialog/edit-wi
         <p>{{wish.description}}</p>
       </mat-card-content>
       <mat-card-actions>
-        <button class="edit-button" color="primary" mat-raised-button (click)="onEditWish(wish)">Edit</button>
+        <button class="edit-button" color="primary" mat-raised-button (click)="onEditWish()">Edit</button>
         <button class="delete-button" color="warn" mat-raised-button (click)="onDeleteWish(wish)">Delete</button>
       </mat-card-actions>
     </mat-card>

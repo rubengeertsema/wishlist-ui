@@ -4,5 +4,7 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  auth_base_url: 'http://localhost:8081/auth',
+  wishes_base_url: 'http://localhost:8080/api/wishes'
 };

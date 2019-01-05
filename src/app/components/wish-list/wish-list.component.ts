@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromRoot from 'app/common/reducers';
+import * as wishActions from '../../common/actions/wishes.actions';
 
 @Component({
   selector: 'app-wish-list',
@@ -27,6 +28,7 @@ export class WishListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.store.dispatch(new wishActions.GetWishes());
     this.wishes$ = this.store.select(fromRoot.getWishes);
   }
 }

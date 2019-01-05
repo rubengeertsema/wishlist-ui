@@ -7,7 +7,7 @@ import { MatDialog } from '@angular/material';
   template: `
     <button mat-fab
             id="add-wish-fab-button"
-            (click)="openAddWishDialog($event)">
+            (click)="openAddWishDialog()">
       <mat-icon>add</mat-icon>
     </button>
   `,

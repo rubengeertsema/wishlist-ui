@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: wishlist-ui
+  labels:
+    app: wishlist-ui
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+    protocol: TCP
+  selector:
+    app: wishlist-ui
+  type: LoadBalancer

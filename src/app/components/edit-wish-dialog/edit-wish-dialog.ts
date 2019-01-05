@@ -1,5 +1,5 @@
-import { Component, Input, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { Wish } from '../../common/models/wish.model';
 import { Store } from '@ngrx/store';
 import * as fromRoot from 'app/common/reducers';
@@ -63,6 +63,10 @@ import * as wishActions from 'app/common/actions/wishes.actions';
     .form-buttons {
       margin-top: 1em;
       margin-bottom: 0.2em;
+    }
+
+    button {
+      margin-right: 0.5em;
     }
   `]
 })
