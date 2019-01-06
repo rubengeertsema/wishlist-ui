@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import * as Keycloak_ from 'keycloak-js';
+import * as env from '../environments/environment';
 
 // to make 'new Keycloak()' work
 const Keycloak: any = (<any>Keycloak_).default || Keycloak_;
-
-import * as env from '../environments/environment';
 
 @Injectable()
 export class KeycloakService {
@@ -27,6 +26,10 @@ export class KeycloakService {
           reject();
         });
     });
+  }
+
+  logout() {
+    this.keycloakAuth.logout({redirectUri: env.environment.base_url});
   }
 
   getToken(): string {

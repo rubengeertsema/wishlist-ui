@@ -3,11 +3,12 @@ import { Store } from '@ngrx/store';
 import * as fromRoot from 'app/common/reducers';
 import * as wishActions from 'app/common/actions/wishes.actions';
 import * as themeActions from 'app/common/actions/theme.actions';
+import { KeycloakService } from '../../keycloak.service';
 
 @Component({
   selector: 'app-navbar',
   template: `
-    <mat-toolbar class="navbar" color="primary" id="navbar">
+    <mat-toolbar class="navbar mat-elevation-z2" color="primary" id="navbar">
       <span>WISHLIST</span>
       <span class="spacer"></span>
       <button mat-button (click)="toggleTheme()">TOGGLE THEME</button>
@@ -17,7 +18,12 @@ import * as themeActions from 'app/common/actions/theme.actions';
       <mat-menu #menu="matMenu">
         <button mat-menu-item (click)="deleteAll()" id="deleteAllButton">
           <mat-icon>delete</mat-icon>
-          <span>Delete all wishes</span></button>
+          <span>Delete all wishes</span>
+        </button>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          <span>Logout</span>
+        </button>
       </mat-menu>
     </mat-toolbar>
   `,
@@ -26,7 +32,6 @@ import * as themeActions from 'app/common/actions/theme.actions';
       right: 0;
       top: 0;
       position: fixed;
-      box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12);
       z-index: 2;
     }
 
@@ -39,11 +44,16 @@ import * as themeActions from 'app/common/actions/theme.actions';
 })
 export class NavbarComponent {
 
-  constructor(public store: Store<fromRoot.State>) {
+  constructor(public store: Store<fromRoot.State>,
+              public keycloakService: KeycloakService) {
   }
 
   toggleTheme() {
     this.store.dispatch(new themeActions.ToggleTheme());
+  }
+
+  logout() {
+    this.keycloakService.logout();
   }
 
   deleteAll(): void {

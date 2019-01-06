@@ -5,6 +5,7 @@
 
 export const environment = {
   production: false,
+  base_url: 'http://localhost:4200',
   auth_base_url: 'http://localhost:8081/auth',
   wishes_base_url: 'http://localhost:8080/api/wishes'
 };
