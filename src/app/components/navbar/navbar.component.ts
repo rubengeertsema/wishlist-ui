@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material';
 import { Store } from '@ngrx/store';
 import * as fromRoot from 'app/common/reducers';
 import * as wishActions from 'app/common/actions/wishes.actions';

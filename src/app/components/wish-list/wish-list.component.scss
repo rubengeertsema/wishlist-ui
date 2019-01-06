@@ -1,0 +1,23 @@
+$small: 512px;
+$large: 1024px;
+
+@media (min-width: $small) {
+  .card-list {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+@media (min-width: $large) {
+  .card-list {
+    margin-left: 15em;
+    margin-right: 15em;
+  }
+}
+
+.card-list {
+  margin-top: 4em;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}

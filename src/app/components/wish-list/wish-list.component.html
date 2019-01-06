@@ -1,0 +1,5 @@
+<mat-list class="card-list">
+  <app-wish-card *ngFor="let wish of this.wishes$ | async" [wish]="wish">
+  </app-wish-card>
+</mat-list>
+<app-add-wish-fab-button></app-add-wish-fab-button>

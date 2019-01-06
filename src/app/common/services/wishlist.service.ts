@@ -27,7 +27,7 @@ export class WishListService {
   public getWishes(): Observable<Wish[]> {
     return this.http.get(baseUrl + '?page=0&size=200', httpOptions)
       .pipe(retry(RETRIES))
-      .map(res => res.content as Wish[]);
+      .map((res: any) => res.content);
   }
 
   public postWish(wish: Wish): Observable<Wish> {

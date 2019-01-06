@@ -31,7 +31,7 @@ import { EditWishDialogComponent } from 'app/components/edit-wish-dialog/edit-wi
     :host {
       margin: 1em;
       flex: 1 0 20%;
-      min-width: 15em;
+      min-width: 12.5em;
     }
 
     .content {

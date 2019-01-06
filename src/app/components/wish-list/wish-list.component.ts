@@ -5,20 +5,8 @@ import * as wishActions from '../../common/actions/wishes.actions';
 
 @Component({
   selector: 'app-wish-list',
-  template: `
-    <mat-list class="card-list">
-      <app-wish-card *ngFor="let wish of this.wishes$ | async" [wish]="wish">
-      </app-wish-card>
-    </mat-list>
-    <app-add-wish-fab-button></app-add-wish-fab-button>
-  `,
-  styles: [`
-    .card-list {
-      margin-top: 4em;
-      display: flex;
-      flex-wrap: wrap;
-    }
-  `]
+  templateUrl: './wish-list.component.html',
+  styleUrls: ['./wish-list.component.scss']
 })
 export class WishListComponent implements OnInit {
 
